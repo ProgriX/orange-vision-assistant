@@ -7,7 +7,7 @@ import java.util.Locale;
 public class SpeechGenerator {
 
 
-    public static float speechSpeed = 0.2f;
+    public static float speechSpeed = 3f;
     private static TextToSpeech speechGenerator;
 
 
