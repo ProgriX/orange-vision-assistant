@@ -222,6 +222,21 @@ public class RUS extends Locate {
         return "настройки";
     }
 
+    @Override
+    public String getGuideMsg(int guideMsg) {
+
+        String str = "";
+
+        switch (guideMsg){
+
+            case SpeechGenerator.NOT_LOADED_ERROR : str = "точное определение не установленно";
+            break;
+
+        }
+
+        return str;
+    }
+
 
     @Override
     public String getAgreement() {

@@ -7,11 +7,15 @@ import java.util.Locale;
 public class SpeechGenerator {
 
 
+
+    public static final int NOT_LOADED_ERROR = 0;
     public static float speechSpeed = 3f;
     private static TextToSpeech speechGenerator;
 
 
     private static Locate locate;
+
+
 
     public static void setLocate(Locate newLocate) {
 
@@ -98,7 +102,13 @@ public class SpeechGenerator {
 
     }
 
-    public static void playSetting(int currentSetting) {
+    public static void playGuide (int guideMsg){
+
+        generateSpeech(locate.getGuideMsg(guideMsg));
+
+    }
+
+    public static void playSetting (int currentSetting) {
 
         generateSpeech(locate.getSetting(currentSetting));
 
