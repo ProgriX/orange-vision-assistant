@@ -164,8 +164,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
         Downloading.getStateLoading();
 
-        final Mat threadFrame = frame.clone();
-        if(SC_fun != -1 && !ScSystem.IsNetWorking)
+
+        if(SC_fun != -1 && !ScSystem.IsNetWorking) {
             new Thread() {
                 public void run() {
                     switch (SC_fun) {
@@ -190,19 +190,31 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                     }
                 }
             }.start();
+            }
         else
             pause(100);
 
         Mat smallFrame = new Mat();
-        Imgproc.resize(frame,smallFrame,new Size(frame.cols() / 2 - 10, frame.rows() / 2 - 10));
-        smallFrame.copyTo(frame.rowRange(0, frame.rows() / 2 - 10).colRange(0, frame.cols() / 2 - 10 ));
 
-        if(SC_fun == 2)
-            return SavedFrame;
-        if(timer > 0) {
+        if(SC_fun == 2 && SavedFrame != null) {
+
+
+            Imgproc.resize(SavedFrame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
+
+        } else
+        if(timer > 0 && SavedFrame != null) {
+
             timer--;
-            return SavedFrame;
+            Imgproc.resize(SavedFrame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
+
+
+        } else {
+
+            Imgproc.resize(frame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
+
         }
+
+        smallFrame.copyTo(frame.rowRange(0, frame.rows() / 2 - 20).colRange(0, frame.cols() / 2 - 15 ));
 
 
         return frame;
