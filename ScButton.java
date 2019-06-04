@@ -23,13 +23,13 @@ public class ScButton implements View.OnTouchListener {
 
     private static void onNextButtonClick(){
         sc++;
-        if(sc > MainActivity.maxSc)sc=0;
+        if(sc > MainActivity.maxSc)sc=1;
         SoundInterface(sc);
     }
 
     private static void onBackButtonClick(){
         sc--;
-        if(sc < 0)sc=MainActivity.maxSc;
+        if(sc < 1)sc=MainActivity.maxSc;
         SoundInterface(sc);
     }
 

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
 
 
-    static int sc = 0, scf = 0,
+    static int sc = 1, scf = 0,
             maxSc = 3, maxScf[] = {0, 0, 5, 0};
 
 
@@ -177,15 +177,15 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             break;
 
                         case 1:
-                            SavedFrame = ScSystem.FD_fun(frame).clone();
+                            SavedFrame = ScSystem.FD_fun(frame.clone());
                             break;
 
                         case 2:
-                            SavedFrame = ScSystem.QOD_fun(frame).clone();
+                            SavedFrame = ScSystem.QOD_fun(frame);
                             break;
 
                         case 3:
-                            SavedFrame = ScSystem.Bus_fun(frame).clone();
+                            SavedFrame = ScSystem.Bus_fun(frame.clone());
                             break;
                     }
                 }
@@ -195,25 +195,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             pause(100);
 
         Mat smallFrame = new Mat();
-
-        if(SC_fun == 2 && SavedFrame != null) {
-
-
-            Imgproc.resize(SavedFrame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
-
-        } else
-        if(timer > 0 && SavedFrame != null) {
-
-            timer--;
-            Imgproc.resize(SavedFrame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
-
-
-        } else {
-
-            Imgproc.resize(frame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
-
-        }
-
+        Imgproc.resize(frame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
         smallFrame.copyTo(frame.rowRange(0, frame.rows() / 2 - 20).colRange(0, frame.cols() / 2 - 15 ));
 
 
