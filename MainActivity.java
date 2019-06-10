@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
 
 
-    static int sc = 0, scf = 0,
+    static int sc = 1, scf = 0,
             maxSc = 3, maxScf[] = {0, 0, 5, 0};
 
 
@@ -160,114 +160,44 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame){
-        Mat frame = inputFrame.rgba();
+        final Mat frame = inputFrame.rgba();
 
         Downloading.getStateLoading();
 
-        final Mat threadFrame = frame.clone();
-        if(SC_fun != -1 && !ScSystem.IsNetWorking)
+
+        if(SC_fun != -1 && !ScSystem.IsNetWorking) {
             new Thread() {
                 public void run() {
                     switch (SC_fun) {
 
                         case 0:
 
-                            SavedFrame = ScSystem.AOD_fun(threadFrame);
+                            SpeechGenerator.playGuide(SpeechGenerator.NOT_LOADED_ERROR);
+                            SC_fun = -1;
                             break;
 
                         case 1:
-                            SavedFrame = ScSystem.FD_fun(threadFrame);
+                            SavedFrame = ScSystem.FD_fun(frame.clone());
                             break;
 
                         case 2:
-                            SavedFrame = ScSystem.QOD_fun(threadFrame);
+                            SavedFrame = ScSystem.QOD_fun(frame);
                             break;
 
                         case 3:
-                            SavedFrame = ScSystem.Bus_fun(threadFrame);
+                            SavedFrame = ScSystem.Bus_fun(frame.clone());
                             break;
                     }
                 }
             }.start();
+            }
         else
             pause(100);
 
-
-        /*SR = SG = SB = 0;
-        int summ = 0;
-        for(int y = 0; y < frame.rows(); y+=10) {
-            for(int x = 0; x < frame.cols(); x+=10) {
-                Buffer[x][y] = frame.get(y, x);
-
-                if(IFF) {
-
-
-
-                    frame.put(y, x, lastBuffer[x][y]);
-                    /*summ += Math.abs(Buffer[x][y][RED] - lastBuffer[x][y][RED]) +
-                            Math.abs(Buffer[x][y][GREEN] - lastBuffer[x][y][GREEN]) +
-                            Math.abs(Buffer[x][y][BLUE] - lastBuffer[x][y][BLUE]);
-
-                    SR += Buffer[x][y][RED];
-                    SG += Buffer[x][y][GREEN];
-                    SB += Buffer[x][y][BLUE];
-                }else {
-                    IFF = true;
-
-                }
-                lastBuffer = Buffer.clone();
-
-            }
-        }
-        SR = (int)(SR / frame.cols() / frame.rows() * 100);
-        SG = (int)(SG / frame.cols() / frame.rows() * 100);
-        SB = (int)(SB/ frame.cols() / frame.rows() * 100);
-        Imgproc.putText(frame, "RGB " + SR + ", " + SG + ", " + SB/*(summ v> 200) ? "moved" : "NaN",new Point(30, 140),Core.FONT_HERSHEY_SIMPLEX, .58, new Scalar(255,0,0),2);
-
-        double [] color = {SR, SG, SB, 255};
-        for(int i = 0; i < 100; i++){
-
-            frame.put(i / 10, i % 10, color);
-
-        }
-*/
-
-
-            /*for(int x = 0; x < 10; x+=1) {
-
-
-                double[] pix = frame.get(snowX[x], snowY[x]);
-
-
-                pix[RED] = pix[RED] - 255;
-                pix[GREEN] = pix[GREEN] - 255;
-                pix[BLUE] = pix[BLUE] - 255;
-
-                snowY[x] += 3;
-                if(snowY[x] > frame.rows() - 1)snowY[x] = 0;
-
-                frame.put(snowY[x], snowX[x], pix);
-                frame.put(snowY[x] + 1, snowX[x], pix);
-                frame.put(snowY[x] - 1, snowX[x], pix);
-                frame.put(snowY[x], snowX[x] + 1, pix);
-                frame.put(snowY[x], snowX[x] - 1, pix);
-
-            }*/
-        //Imgproc.putText(frame,"" + pix.length,new Point(0, 50),Core.FONT_HERSHEY_SIMPLEX, .58, new Scalar(255,0,0),2);
-        //Imgproc.putText(frame,"" + pix[0],new Point(0, 150),Core.FONT_HERSHEY_SIMPLEX, .58, new Scalar(255,0,0),2);
-        //Imgproc.putText(frame,"" + pix[1],new Point(0, 175),Core.FONT_HERSHEY_SIMPLEX, .58, new Scalar(255,0,0),2);
-        //Imgproc.putText(frame,"" + pix[2],new Point(0, 200),Core.FONT_HERSHEY_SIMPLEX, .58, new Scalar(255,0,0),2);
-        //Imgproc.putText(frame,"" + pix[3],new Point(0, 225),Core.FONT_HERSHEY_SIMPLEX, .58, new Scalar(255,0,0),2);
-        if(SC_fun == 2)
-            return SavedFrame;
-        if(timer > 0) {
-            timer--;
-            return SavedFrame;
-        }
-
         Mat smallFrame = new Mat();
-        Imgproc.resize(frame,smallFrame,new Size(frame.cols() / 2 - 10, frame.rows() / 2 - 10));
-        smallFrame.copyTo(frame.rowRange(0, frame.rows() / 2 - 10).colRange(0, frame.cols() / 2 - 10 ));
+        Imgproc.resize(frame,smallFrame,new Size(frame.cols() / 2 - 15, frame.rows() / 2 - 20));
+        smallFrame.copyTo(frame.rowRange(0, frame.rows() / 2 - 20).colRange(0, frame.cols() / 2 - 15 ));
+
 
         return frame;
 

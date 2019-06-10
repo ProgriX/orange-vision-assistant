@@ -15,4 +15,6 @@ public abstract class Locate {
     public abstract String getValue(int currentSetting, int currentValue);
 
     public abstract String getSetAgr();
+
+    public abstract String getGuideMsg(int guideMsg);
 }

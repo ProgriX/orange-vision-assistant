@@ -31,7 +31,7 @@ public class ScSystem {
 
 
 
-    public static Mat AOD_NET(Mat frame){
+    private static Mat AOD_NET(Mat frame){
         Sounding.init();
         Imgproc.cvtColor(frame, frame, Imgproc.COLOR_RGBA2RGB);
         //        //Creating a blob
@@ -137,7 +137,7 @@ public class ScSystem {
         return frame;
     }
 
-    public static Mat FD_NET(Mat frame) {
+    private static void FD_NET(Mat frame) {
         //showFace=false
 
         ; //!!!!!!!!!!!!!
@@ -325,10 +325,9 @@ public class ScSystem {
 
         Log.d("EXPERIMENT8", "ACTUALLY WENT OUTSIDE THE LOOP");
 
-        return frame;
     }
 
-    public static Mat QOD_NET(Mat frame){
+    private static void QOD_NET(Mat frame){
 
         Imgproc.cvtColor(frame, frame, Imgproc.COLOR_RGBA2RGB);
         //        //Creating a blob
@@ -421,11 +420,9 @@ public class ScSystem {
 
         }else MainActivity.vibrator.vibrate(30);
 
-
-        return frame;
     }
 
-    private static Mat Bus_NET(Mat frame) {
+    private static void Bus_NET(Mat frame) {
 
         Imgproc.cvtColor(frame, frame, Imgproc.COLOR_RGBA2RGB);
         Mat blob = Dnn.blobFromImage(frame, 0.00392, new Size(416, 416), new Scalar(0, 0, 0),/*swapRB*/false, /*crop*/false);
@@ -580,7 +577,7 @@ public class ScSystem {
 
         MainActivity.SC_fun = -1;
         MainActivity.timer = 60;
-        return frame;
+
 
     }
 
@@ -624,7 +621,7 @@ public class ScSystem {
 
         }
 
-        frame = FD_NET(frame);
+        FD_NET(frame);
 
 
         IsNetWorking = false;
@@ -643,7 +640,8 @@ public class ScSystem {
 
         }
 
-        frame = QOD_NET(frame);
+        QOD_NET(frame);
+        if(MainActivity.SC_fun == 2) Sounding.mediaPlayerForStep.start();
 
         IsNetWorking = false;
 
@@ -662,7 +660,7 @@ public class ScSystem {
 
         }
 
-        frame = Bus_NET(frame);
+        Bus_NET(frame);
 
         IsNetWorking = false;
 

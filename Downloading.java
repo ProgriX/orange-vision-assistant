@@ -21,12 +21,12 @@ public class Downloading extends Thread {
     private final static String[] fileNames = { "BUSNUM.pb", "busyolo.cfg", "busyolo.weights",
             "deploy.prototxt", "facemodel.pb", "new_emotion_net.pb",
             "res10_300x300_ssd_iter_140000.caffemodel", "yolov3-tiny.cfg",
-            "yolov3-tiny.weights", "yolov3.cfg", "yolov3.weights" };
+            "yolov3-tiny.weights" };
 
     private final static long[] fileSize = { 93477633, 2028, 34732716,
             28092, 38569026, 5950014,
             10666211, 1915, 35434956,
-            8342, 248007048  };
+    };
 
     private final static String[] filePath = {
             "https://drive.google.com/uc?export=download&id=10egK9kMxIUxjAQAkxnVrkQw_RF1bidck",
@@ -37,9 +37,7 @@ public class Downloading extends Thread {
             "https://drive.google.com/uc?export=download&id=1P8JuUabGJd0J2sXONYRmTM6Vk3t-Soqe",
             "https://drive.google.com/uc?export=download&id=1udBe5EiWJDYj0195jGSuFmJqMJOCMHjA",
             "https://drive.google.com/uc?export=download&id=1Hpnqav2LZ3nddFKwWMG6TavGVq5ZAfsg",
-            "https://drive.google.com/uc?export=download&id=1UqNe1O2BN0M8Nt0BpP2FQ6FecVzdHK4j",
-            "https://drive.google.com/uc?export=download&id=1JfsszGs2vZ2FxrY8LLN0RwddSWZgUqdD",
-            "https://pjreddie.com/media/files/yolov3.weights"
+            "https://drive.google.com/uc?export=download&id=1UqNe1O2BN0M8Nt0BpP2FQ6FecVzdHK4j"
     };
 
     private static File loadFile;

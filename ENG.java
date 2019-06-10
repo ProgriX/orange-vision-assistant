@@ -194,4 +194,9 @@ public class ENG extends Locate {
     public String getSetAgr() {
         return null;
     }
+
+    @Override
+    public String getGuideMsg(int guideMsg) {
+        return null;
+    }
 }
