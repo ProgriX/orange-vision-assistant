@@ -641,6 +641,7 @@ public class ScSystem {
         }
 
         QOD_NET(frame);
+        if(MainActivity.SC_fun == 2) Sounding.mediaPlayerForStep.start();
 
         IsNetWorking = false;
 
