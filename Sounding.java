@@ -5,7 +5,6 @@ import android.media.MediaPlayer;
 
 import java.util.Locale;
 
-import static ru.va.progrixivan.visionassistsant.MainActivity.SC_fun;
 import static ru.va.progrixivan.visionassistsant.MainActivity.scf;
 import static ru.va.progrixivan.visionassistsant.SpeechGenerator.generateSpeech;
 
@@ -42,7 +41,7 @@ public class Sounding {
 
 
     private static MediaPlayer mediaPlayerForWait;
-    private static MediaPlayer mediaPlayerForStep;
+    public static MediaPlayer mediaPlayerForStep;
 
 
 
@@ -123,7 +122,7 @@ public class Sounding {
             }
 
             SpeechGenerator.generateSpeech(objStream);
-            if(SC_fun == 2) mediaPlayerForStep.start();
+//            if(SC_fun == 2) mediaPlayerForStep.start();
             init();
 
 
@@ -221,7 +220,7 @@ public class Sounding {
 
     public static void Agr_fun() {
 
-        if(Locale.getDefault().getLanguage() == "ru") {
+        if(Locale.getDefault().getLanguage().toLowerCase().startsWith("ru")) {
 
             SpeechGenerator.setLocate(new RUS());
 
